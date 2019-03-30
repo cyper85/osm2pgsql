@@ -12,7 +12,6 @@ ENV POSTGRES_PORT=5432
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-
 ENV HOME /root
 ENV OSM2PGSQL_VERSION 0.96.0
 
@@ -23,14 +22,14 @@ RUN	apk update
 RUN apk add --no-cache libgcc libstdc++ boost-filesystem boost-system boost-thread expat libbz2 postgresql-libs libpq geos@testing proj4@testing lua5.2 lua5.2-libs
 
 # Install develop tools and dependencies, build osm2pgsql and remove develop tools and dependencies
-RUN apk add --no-cache make cmake expat-dev g++ git boost-dev zlib-dev bzip2-dev proj4-dev@testing 	geos-dev@testing lua5.2-dev postgresql-dev wget
+RUN apk add --no-cache make cmake expat-dev g++ git boost-dev zlib-dev bzip2-dev proj4-dev@testing geos-dev@testing lua5.2-dev postgresql-dev wget
 RUN mkdir /usr/local/src
 
 WORKDIR /usr/local/src 
 RUN git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstreetmap/osm2pgsql.git 
-RUN cd osm2pgsql 
+WORKDIR /usr/local/src/osm2pgsql 
 RUN mkdir build 
-RUN cd build
+WORKDIR /usr/local/src/osm2pgsql/build
 RUN cmake -DLUA_LIBRARY=/usr/lib/liblua-5.2.so.0 .. 
 RUN make 
 RUN make install 

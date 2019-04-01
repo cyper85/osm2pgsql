@@ -15,16 +15,12 @@ docker network create postgis-net
 docker run --detach --name test-postgis --network postgis-net cyper85/postgis
 
 # Install a osm2pgsql-instance
-docker run --env POSTGRES_HOST=test-postgis --detach --name test-osm2pgsql --network postgis-net cyper85/osm2pgsql
-
+docker run --env POSTGRES_HOST=test-postgis --name test-osm2pgsql --network postgis-net cyper85/osm2pgsql
 ```
 
 Or you build your own image from source:
 
 ```bash
-# Create a Network to use the Postgis-Server in an other container
-docker network create postgis-net
-
 # Download sources
 git clone https://github.com/cyper85/osm2pgsql.git
 cd osm2pgsql/

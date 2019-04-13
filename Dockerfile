@@ -21,4 +21,8 @@ RUN git clone https://github.com/gravitystorm/openstreetmap-carto.git
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
 
+RUN useradd -s /bin/bash osm
+
+USER osm
+
 ENTRYPOINT ["/run.sh"]

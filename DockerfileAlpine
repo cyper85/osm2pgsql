@@ -13,7 +13,7 @@ ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV HOME /root
-ENV OSM2PGSQL_VERSION 0.96.0
+ENV OSM2PGSQL_VERSION 1.00.0-RC1
 
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories 
 

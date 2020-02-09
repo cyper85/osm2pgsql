@@ -33,7 +33,7 @@ RUN git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstree
 WORKDIR /usr/local/src/osm2pgsql 
 RUN mkdir build 
 WORKDIR /usr/local/src/osm2pgsql/build
-RUN cmake -DLUA_LIBRARY=/usr/lib/liblua-5.2.so.0 .. && make VERBOSE=1 && make install 
+RUN cmake -DLUA_LIBRARY=/usr/lib/liblua-5.2.so.0 .. && make && make install 
 
 # Carto-Daten
 WORKDIR /usr/local/src/

@@ -1,11 +1,20 @@
-language: ruby
+language: python
+python:
+  - 2.7
+  - 3
 
 services:
   - docker
 
-before_install:
+install:
   - docker build -t cyper85/osm2pgsql -f Dockerfile .
   - docker build -t cyper85/osm2pgsql:alpine -f DockerfileAlpine .
+  - docker run -d --name osm2pgsqlNormal cyper85/osm2pgsql
+  - docker run -d --name osm2pgsqlAlpine cyper85/osm2pgsql:alpine
 
 script:
- - bundle exec rake test
+  - docker ps | grep -q osm2pgsqlNormal
+  - docker ps | grep -q osm2pgsqlAlpine
+
+after_script:
+  - docker images

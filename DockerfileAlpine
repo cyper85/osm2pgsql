@@ -1,5 +1,9 @@
 FROM alpine:latest
 
+LABEL       version="1.2.1" \
+            os="Alpine Linux" \
+            description="osm2pgsql Standardinstallation zum auslesen parsen von PBF-Daten in eine postgis-Datenbank"
+
 USER root
 
 # Enviroment-Variablen
@@ -13,15 +17,15 @@ ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV HOME /root
-ENV OSM2PGSQL_VERSION 1.0.0
+ENV OSM2PGSQL_VERSION 1.2.1
 
-RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories 
+RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories 
 
 # Install the things we want to stick around
-RUN apk update && apk add --no-cache libgcc libstdc++ boost-filesystem boost-system boost-thread expat libbz2 postgresql-libs libpq geos@testing proj@testing lua5.2 lua5.2-libs
+RUN apk update && apk --no-cache --update upgrade musl && apk add --upgrade --force-overwrite apk-tools && apk add --no-cache libgcc libstdc++ boost-filesystem boost-system boost-thread expat libbz2 postgresql-libs libpq geos@community proj@community lua5.2 lua5.2-libs
 
 # Install develop tools and dependencies, build osm2pgsql and remove develop tools and dependencies
-RUN apk update && apk add --no-cache bash make cmake expat-dev g++ git boost-dev zlib-dev bzip2-dev proj-dev@testing geos-dev@testing lua5.2-dev postgresql-dev wget
+RUN apk update && apk --no-cache --update upgrade musl && apk add --upgrade --force-overwrite apk-tools && apk add --no-cache bash make cmake expat-dev g++ git boost-dev zlib-dev bzip2-dev proj-dev@community geos-dev@community lua5.2-dev postgresql-dev wget
 RUN mkdir /usr/local/src
 
 WORKDIR /usr/local/src 
@@ -29,7 +33,7 @@ RUN git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstree
 WORKDIR /usr/local/src/osm2pgsql 
 RUN mkdir build 
 WORKDIR /usr/local/src/osm2pgsql/build
-RUN cmake -DLUA_LIBRARY=/usr/lib/liblua-5.2.so.0 .. && make && make install 
+RUN cmake -DLUA_LIBRARY=/usr/lib/liblua-5.2.so.0 .. && make VERBOSE=1 && make install 
 
 # Carto-Daten
 WORKDIR /usr/local/src/

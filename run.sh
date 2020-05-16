@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export PGPASS=$POSTGRES_PASSWORD
+export PGPASSWORD=$POSTGRES_PASSWORD
 
 wget -O /tmp/data.osm.pbf $PBF_URL
 

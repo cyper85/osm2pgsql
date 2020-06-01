@@ -42,7 +42,7 @@ RUN git clone https://github.com/gravitystorm/openstreetmap-carto.git
 # Aufräumen
 WORKDIR /usr/local/src
 RUN rm -rf osm2pgsql
-RUN apk --purge del make cmake git g++ boost-dev gdbm python3 boost-python3 python binutils gcc lua5.2-dev bzip2-dev expat-dev 	musl-dev libc-dev zlib-dev openssl-dev postgresql-dev proj-dev
+RUN apk --purge del make cmake git g++ boost-dev gdbm python3 boost-python3 binutils gcc lua5.2-dev bzip2-dev expat-dev 	musl-dev libc-dev zlib-dev openssl-dev postgresql-dev proj-dev
 
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh

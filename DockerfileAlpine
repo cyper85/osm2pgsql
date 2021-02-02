@@ -25,7 +25,7 @@ RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /et
 RUN apk update && \
     apk --no-cache --update upgrade musl && \
     apk add --upgrade --force-overwrite apk-tools && \
-    apk add --no-cache libgcc libstdc++ boost-filesystem boost-system boost-thread expat libbz2 postgresql-libs libpq geos@community proj@community lua5.2 lua5.2-libs python3 py3-pip
+    apk add --no-cache libgcc libstdc++ boost-filesystem boost-system boost-thread expat libbz2 postgresql-libs libpq geos@community proj@community lua5.2 lua5.2-libs python3 py3-yaml py3-requests py3-psycopg2
 
 # Install develop tools and dependencies, build osm2pgsql and remove develop tools and dependencies
 RUN apk update && \
@@ -44,9 +44,6 @@ RUN cmake -DLUA_LIBRARY=/usr/lib/liblua-5.2.so.0 .. && make && make install
 # Carto-Daten
 WORKDIR /usr/local/src/
 RUN git clone https://github.com/gravitystorm/openstreetmap-carto.git
-
-# Python-Module laden
-RUN pip install yaml psycopg2 requests
 
 # Aufräumen
 WORKDIR /usr/local/src

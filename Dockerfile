@@ -11,7 +11,7 @@ ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && \
-    apt-get install -y osm2pgsql git wget python3 python3-psycopg2 python3-requests python3-yaml
+    apt-get install --quiet -y osm2pgsql git wget python3 python3-psycopg2 python3-requests python3-yaml
 
 # Carto-Daten
 WORKDIR /usr/local/src/

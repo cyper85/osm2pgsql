@@ -5,14 +5,14 @@ This is a container to import OpenStreetMap-Data for a [Mapnik-Tile-Server](http
 
 ## Installation
 
-You need a [postGIS-Container](https://github.com/cyper85/postgis). For the importer you can use this Image from Docker-Hub [cyper85/osm2pgsql](https://hub.docker.com/r/cyper85/osm2pgsql).
+You need a [postGIS-Container](https://github.com/postgis/docker-postgis). For the importer you can use this Image from Docker-Hub [cyper85/osm2pgsql](https://hub.docker.com/r/cyper85/osm2pgsql).
 
 ```bash
 # Create a Network to use the Postgis-Server in an other container
 docker network create postgis-net
 
 # Install a postgis-instance
-docker run --detach --name test-postgis --network postgis-net cyper85/postgis
+docker run --detach --name test-postgis --network postgis-net postgis/postgis
 
 # Install a osm2pgsql-instance
 docker run --env POSTGRES_HOST=test-postgis --name test-osm2pgsql --network postgis-net cyper85/osm2pgsql

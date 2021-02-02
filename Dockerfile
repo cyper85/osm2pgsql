@@ -10,9 +10,8 @@ ENV POSTGRES_PORT=5432
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt update
-RUN apt upgrade -y
-RUN apt-get install -y osm2pgsql git wget
+RUN apt-get update && \
+    apt-get install -y osm2pgsql git wget python3 python3-psycopg2 python3-requests python3-yaml
 
 # Carto-Daten
 WORKDIR /usr/local/src/

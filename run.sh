@@ -10,7 +10,8 @@ python3 /usr/local/src/openstreetmap-carto/scripts/get-external-data.py --databa
                                                                         --host "${POSTGRES_HOST}" \
                                                                         --port "${POSTGRES_PORT}" \
                                                                         --username "${POSTGRES_USER}" \
-                                                                        --password "${POSTGRES_PASSWORD}"
+                                                                        --password "${POSTGRES_PASSWORD}" \
+|| echo "ShapeFile-Import with Errors"
 
 # Import PBF-File
 osm2pgsql --username "${POSTGRES_USER}" \

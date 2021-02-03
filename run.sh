@@ -6,12 +6,13 @@ export PGPASSWORD="$POSTGRES_PASSWORD"
 wget -O /tmp/data.osm.pbf "${PBF_URL}"
 
 # Import ShapeFiles
-python3 /usr/local/src/openstreetmap-carto/scripts/get-external-data.py --database "${POSTGRES_DB}" \
-                                                                        --host "${POSTGRES_HOST}" \
-                                                                        --port "${POSTGRES_PORT}" \
-                                                                        --username "${POSTGRES_USER}" \
-                                                                        --password "${POSTGRES_PASSWORD}" \
-                                                                        --config /usr/local/src/openstreetmap-carto/external-data.yml \
+cd /usr/local/src/openstreetmap-carto/ || exit 1
+python3 scripts/get-external-data.py --database "${POSTGRES_DB}" \
+                                     --host "${POSTGRES_HOST}" \
+                                     --port "${POSTGRES_PORT}" \
+                                     --username "${POSTGRES_USER}" \
+                                     --password "${POSTGRES_PASSWORD}" \
+                                     --config /usr/local/src/openstreetmap-carto/external-data.yml \
 || echo "ShapeFile-Import with Errors"
 
 # Import PBF-File

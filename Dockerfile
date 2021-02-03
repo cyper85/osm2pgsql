@@ -15,7 +15,8 @@ RUN apt-get update && \
 
 # Carto-Daten
 WORKDIR /usr/local/src/
-RUN git clone https://github.com/gravitystorm/openstreetmap-carto.git
+RUN git clone https://github.com/gravitystorm/openstreetmap-carto.git && \
+    chmod -R a+rwx /usr/local/src/openstreetmap-carto
 
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
